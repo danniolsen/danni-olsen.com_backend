@@ -6,6 +6,7 @@ import cors from "cors";
 import GraphEndpoint from "./graph/GraphEndpoint";
 
 const app: express.Application = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(
@@ -42,7 +43,7 @@ mongoose
   )
   .then(() => {
     GraphEndpoint(app);
-    app.listen(5000, () => console.log("Server running"));
+    app.listen(PORT, () => console.log("Server running"));
   })
   .catch((err: object) => {
     console.log("Could not connect to server", err);
