@@ -23,6 +23,7 @@ export const ExperienceDef = `
 // get list of Experiences
 export function GetAllExperience(ExperienceModel: any) {
   return ExperienceModel.find()
+    .sort({ _id: "desc" })
     .then((res: any) => {
       return res.map((exp: any) => {
         return { ...exp._doc };
