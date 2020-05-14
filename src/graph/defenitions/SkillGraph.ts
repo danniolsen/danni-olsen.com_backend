@@ -54,5 +54,3 @@ export function CreateNewSkill(
     })
     .catch((err: any) => console.log("error", err));
 }
-
-// make skill type fk later
