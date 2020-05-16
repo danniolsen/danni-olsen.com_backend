@@ -18,6 +18,12 @@ import {
   GetAllExperience,
   CreateNewExperience
 } from "./defenitions/experiencesGraph";
+import DescriptionModel from "../models/description_model";
+import {
+  DescriptionDef,
+  GetAllDescriptions,
+  CreateNewDescription
+} from "./defenitions/descriptionGraph";
 
 const GraphEndpoint = (app: any) => {
   app.use(
@@ -27,15 +33,18 @@ const GraphEndpoint = (app: any) => {
           ${SkillTypeDef}
           ${SkillDef}
           ${ExperienceDef}
+          ${DescriptionDef}
           type RootQuery{
             skillType: [SkillType!]!
             skill: [Skill!]!
             experience: [Experience!]!
+            description: [Description!]!
           }
           type RootMutation {
             createSkillType(skillTypeInput: SkillTypeInput): SkillType
             createSkill(skillInput: SkillInput): Skill
             createExperience(experienceInput: ExperienceInput): Experience
+            createDescription(descriptionInput: DescriptionInput): Description
           }
           schema {
             query: RootQuery
@@ -60,6 +69,12 @@ const GraphEndpoint = (app: any) => {
         },
         createExperience: async (args: any) => {
           return CreateNewExperience(ExperienceModel, args);
+        },
+        description: async () => {
+          return GetAllDescriptions(DescriptionModel);
+        },
+        createDescription: async (args: any) => {
+          return CreateNewDescription(DescriptionModel, ExperienceModel, args);
         }
       },
       graphiql: true

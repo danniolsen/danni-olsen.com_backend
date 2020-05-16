@@ -26,10 +26,12 @@ const experienceSchema: mongoose.Schema = new Schema({
     type: Date,
     required: true
   },
-  exp_description: {
-    type: String,
-    required: true
-  }
+  exp_descriptions: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Description"
+    }
+  ]
 });
 
 export default mongoose.model("Experiences", experienceSchema);
