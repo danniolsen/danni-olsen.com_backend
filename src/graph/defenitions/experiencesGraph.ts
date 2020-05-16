@@ -7,7 +7,7 @@ export const ExperienceDef = `
     exp_position:String!
     exp_start_date:String!
     exp_end_date:String!
-    exp_description:String!
+    exp_descriptions: [Description!]
   }
 
   input ExperienceInput {
@@ -17,13 +17,13 @@ export const ExperienceDef = `
     exp_position:String!
     exp_start_date:String!
     exp_end_date:String!
-    exp_description:String!
+    exp_descriptions: [DescriptionInput]
   }`;
 
-// get list of Experiences
 export function GetAllExperience(ExperienceModel: any) {
   return ExperienceModel.find()
     .sort({ _id: "desc" })
+    .populate("exp_descriptions")
     .then((res: any) => {
       return res.map((exp: any) => {
         return { ...exp._doc };
@@ -43,8 +43,7 @@ export function CreateNewExperience(ExperienceModel: any, args: any) {
     exp_company: args.experienceInput.exp_company,
     exp_position: args.experienceInput.exp_position,
     exp_start_date: args.experienceInput.exp_start_date,
-    exp_end_date: args.experienceInput.exp_end_date,
-    exp_description: args.experienceInput.exp_description
+    exp_end_date: args.experienceInput.exp_end_date
   });
 
   return experience
