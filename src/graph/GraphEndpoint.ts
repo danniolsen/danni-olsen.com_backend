@@ -24,6 +24,18 @@ import {
   GetAllDescriptions,
   CreateNewDescription
 } from "./defenitions/descriptionGraph";
+import ActivityModel from "../models/activities_model";
+import {
+  ActivitiesDef,
+  GetAllActivities,
+  CreateNewActivity
+} from "./defenitions/activitiesGraph";
+import ActivityItemModel from "../models/Activity_item_model";
+import {
+  ActivityItemDef,
+  GetAllActivityItems,
+  CreateNewActivityItem
+} from "./defenitions/activityItemGraph";
 
 const GraphEndpoint = (app: any) => {
   app.use(
@@ -34,17 +46,23 @@ const GraphEndpoint = (app: any) => {
           ${SkillDef}
           ${ExperienceDef}
           ${DescriptionDef}
+          ${ActivitiesDef}
+          ${ActivityItemDef}
           type RootQuery{
             skillType: [SkillType!]!
             skill: [Skill!]!
             experience: [Experience!]!
             description: [Description!]!
+            activities: [Activity!]!
+            activityItem: [ActivityItem!]!
           }
           type RootMutation {
             createSkillType(skillTypeInput: SkillTypeInput): SkillType
             createSkill(skillInput: SkillInput): Skill
             createExperience(experienceInput: ExperienceInput): Experience
             createDescription(descriptionInput: DescriptionInput): Description
+            createActivity(activityInput: ActivityInput): Activity
+            createActivityItem(activityItemInput: ActivityItemInput ): ActivityItem
           }
           schema {
             query: RootQuery
@@ -75,6 +93,18 @@ const GraphEndpoint = (app: any) => {
         },
         createDescription: async (args: any) => {
           return CreateNewDescription(DescriptionModel, ExperienceModel, args);
+        },
+        activities: async () => {
+          return GetAllActivities(ActivityModel);
+        },
+        createActivity: async (args: any) => {
+          return CreateNewActivity(ActivityModel, args);
+        },
+        activityItem: async () => {
+          return GetAllActivityItems(ActivityItemModel);
+        },
+        createActivityItem: async (args: any) => {
+          return CreateNewActivityItem(ActivityItemModel, ActivityModel, args);
         }
       },
       graphiql: true
