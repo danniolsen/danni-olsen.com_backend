@@ -14,7 +14,7 @@ export const ActivitiesDef = `
 
 export function GetAllActivities(ActivitiesModel: any) {
   return ActivitiesModel.find()
-    .sort({ _id: "desc" })
+    .sort({ _id: "ASC" })
     .populate("act_descriptions")
     .then((res: any) => {
       return res.map((act: any) => {
