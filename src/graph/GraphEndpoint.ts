@@ -107,7 +107,7 @@ const GraphEndpoint = (app: any) => {
           return CreateNewActivityItem(ActivityItemModel, ActivityModel, args);
         }
       },
-      graphiql: true
+      graphiql: false
     })
   );
 };
